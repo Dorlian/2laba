@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero__text">
+    <h1 class="hero__title">{{ t.hero_title }}</h1>
+    <p class="hero__lead">{{ t.hero_text }}</p>
+    <a class="btn btn--primary" href="{% url 'playlists:create' %}">{{ t.nav_create }}</a>
+  </div>
+  <div class="hero__art">
+    <img src="{% static 'images/playlist-hero.svg' %}" width="320" height="240" alt="">
+  </div>
+</section>
+{% endblock %}

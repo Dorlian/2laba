@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ playlist.name }} — {{ t.brand }}{% endblock %}
+
+{% block content %}
+<article class="detail">
+  <h1 class="page-title">{{ playlist.name }}</h1>
+  {% if playlist.description %}<p class="detail__desc">{{ playlist.description }}</p>{% endif %}
+  <h2 class="detail__sub">{{ t.detail_tracks }}</h2>
+  <ol class="track-list">
+    {% for tr in tracks %}
+    <li>{{ tr.artist }} — {{ tr.title }} ({{ tr.duration_min }} min)</li>
+    {% empty %}
+    <li>—</li>
+    {% endfor %}
+  </ol>
+  <p><a href="{% url 'playlists:mine' %}">{{ t.back }}</a></p>
+</article>
+{% endblock %}

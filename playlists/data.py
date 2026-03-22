@@ -1,0 +1,138 @@
+"""Каталог треков и строки интерфейса (данные в коде: списки и словари)."""
+
+TRACKS = [
+    {
+        "id": "t1",
+        "title": "Midnight Drive",
+        "artist": "Neon Pulse",
+        "duration_min": 3,
+        "genre": "synthwave",
+    },
+    {
+        "id": "t2",
+        "title": "Coffee & Code",
+        "artist": "Lo-Fi Desk",
+        "duration_min": 2,
+        "genre": "lofi",
+    },
+    {
+        "id": "t3",
+        "title": "Northern Lights",
+        "artist": "Aurora Ensemble",
+        "duration_min": 5,
+        "genre": "ambient",
+    },
+    {
+        "id": "t4",
+        "title": "Metro Rush",
+        "artist": "City Beats",
+        "duration_min": 4,
+        "genre": "electronic",
+    },
+    {
+        "id": "t5",
+        "title": "Acoustic Morning",
+        "artist": "Wooden Strings",
+        "duration_min": 3,
+        "genre": "acoustic",
+    },
+    {
+        "id": "t6",
+        "title": "Deep Focus",
+        "artist": "Study Mode",
+        "duration_min": 6,
+        "genre": "instrumental",
+    },
+]
+
+TRACK_BY_ID = {t["id"]: t for t in TRACKS}
+
+GENRES = [
+    {"code": "synthwave", "label_ru": "Синтвейв", "label_en": "Synthwave"},
+    {"code": "lofi", "label_ru": "Lo-Fi", "label_en": "Lo-Fi"},
+    {"code": "ambient", "label_ru": "Эмбиент", "label_en": "Ambient"},
+    {"code": "electronic", "label_ru": "Электроника", "label_en": "Electronic"},
+    {"code": "acoustic", "label_ru": "Акустика", "label_en": "Acoustic"},
+    {"code": "instrumental", "label_ru": "Инструментал", "label_en": "Instrumental"},
+]
+
+UI = {
+    "ru": {
+        "brand": "Playlist Hub",
+        "tagline": "Собирайте плейлисты из каталога — быстро и наглядно.",
+        "nav_home": "Главная",
+        "nav_catalog": "Каталог",
+        "nav_create": "Создать плейлист",
+        "nav_mine": "Мои плейлисты",
+        "hero_title": "Музыка под настроение",
+        "hero_text": (
+            "Выберите треки из демо-каталога, задайте название — "
+            "плейлист сохранится в вашей сессии браузера."
+        ),
+        "catalog_title": "Каталог треков",
+        "col_num": "#",
+        "col_track": "Трек",
+        "col_artist": "Исполнитель",
+        "col_genre": "Жанр",
+        "col_min": "Мин.",
+        "create_title": "Новый плейлист",
+        "create_name": "Название",
+        "create_desc": "Описание (необязательно)",
+        "create_tracks": "Треки",
+        "create_submit": "Сохранить",
+        "mine_title": "Мои плейлисты",
+        "mine_empty": "Пока пусто — создайте первый плейлист.",
+        "open": "Открыть",
+        "tracks_count": "треков",
+        "prefs_title": "Настройки (cookies)",
+        "pref_theme": "Тема",
+        "pref_lang": "Язык",
+        "theme_light": "Светлая",
+        "theme_dark": "Тёмная",
+        "lang_ru": "Русский",
+        "lang_en": "English",
+        "visited_title": "Недавние страницы",
+        "footer_note": "Демо-проект: данные каталога заданы в коде.",
+        "detail_tracks": "Состав",
+        "back": "Назад к списку",
+    },
+    "en": {
+        "brand": "Playlist Hub",
+        "tagline": "Build playlists from the catalog — quick and clear.",
+        "nav_home": "Home",
+        "nav_catalog": "Catalog",
+        "nav_create": "Create playlist",
+        "nav_mine": "My playlists",
+        "hero_title": "Music for your mood",
+        "hero_text": (
+            "Pick tracks from the demo catalog, name your playlist — "
+            "it is stored in your browser session."
+        ),
+        "catalog_title": "Track catalog",
+        "col_num": "#",
+        "col_track": "Track",
+        "col_artist": "Artist",
+        "col_genre": "Genre",
+        "col_min": "Min.",
+        "create_title": "New playlist",
+        "create_name": "Name",
+        "create_desc": "Description (optional)",
+        "create_tracks": "Tracks",
+        "create_submit": "Save",
+        "mine_title": "My playlists",
+        "mine_empty": "Nothing here yet — create your first playlist.",
+        "open": "Open",
+        "tracks_count": "tracks",
+        "prefs_title": "Settings (cookies)",
+        "pref_theme": "Theme",
+        "pref_lang": "Language",
+        "theme_light": "Light",
+        "theme_dark": "Dark",
+        "lang_ru": "Russian",
+        "lang_en": "English",
+        "visited_title": "Recent pages",
+        "footer_note": "Demo project: catalog data is defined in code.",
+        "detail_tracks": "Track list",
+        "back": "Back to list",
+    },
+}

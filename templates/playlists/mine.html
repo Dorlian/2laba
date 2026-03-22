@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.mine_title }} — {{ t.brand }}{% endblock %}
+
+{% block content %}
+<h1 class="page-title">{{ t.mine_title }}</h1>
+{% if not playlists %}
+<p class="empty">{{ t.mine_empty }}</p>
+{% else %}
+<ul class="card-list">
+  {% for pl in playlists %}
+  <li class="card">
+    <h2 class="card__title">{{ pl.name }}</h2>
+    {% if pl.description %}<p class="card__desc">{{ pl.description }}</p>{% endif %}
+    <p class="card__meta">{{ pl.tracks|length }} {{ t.tracks_count }}</p>
+    <a class="btn" href="{% url 'playlists:detail' pl.id %}">{{ t.open }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

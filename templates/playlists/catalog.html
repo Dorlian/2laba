@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.catalog_title }} — {{ t.brand }}{% endblock %}
+
+{% block content %}
+<h1 class="page-title">{{ t.catalog_title }}</h1>
+<div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>{{ t.col_num }}</th>
+        <th>{{ t.col_track }}</th>
+        <th>{{ t.col_artist }}</th>
+        <th>{{ t.col_genre }}</th>
+        <th>{{ t.col_min }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for track in tracks %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ track.title }}</td>
+        <td>{{ track.artist }}</td>
+        <td>
+          {% for g in genres %}
+            {% if g.code == track.genre %}
+              {% if ui_lang == 'ru' %}{{ g.label_ru }}{% else %}{{ g.label_en }}{% endif %}
+            {% endif %}
+          {% endfor %}
+        </td>
+        <td>{{ track.duration_min }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

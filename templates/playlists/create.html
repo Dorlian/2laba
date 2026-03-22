@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.create_title }} — {{ t.brand }}{% endblock %}
+
+{% block content %}
+<h1 class="page-title">{{ t.create_title }}</h1>
+<form class="pl-form" method="post" action="">
+  {% csrf_token %}
+  <div class="field">
+    <label class="field__label" for="id_name">{{ t.create_name }}</label>
+    {{ form.name }}
+  </div>
+  <div class="field">
+    <label class="field__label" for="id_description">{{ t.create_desc }}</label>
+    {{ form.description }}
+  </div>
+  <fieldset class="field">
+    <legend class="field__label">{{ t.create_tracks }}</legend>
+    {{ form.track_ids }}
+  </fieldset>
+  {% if form.errors %}
+  <ul class="errors">
+    {% for field in form %}
+      {% for err in field.errors %}<li>{{ err }}</li>{% endfor %}
+    {% endfor %}
+    {% for err in form.non_field_errors %}<li>{{ err }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <button type="submit" class="btn btn--primary">{{ t.create_submit }}</button>
+</form>
+{% endblock %}

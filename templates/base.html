@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ ui_lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ t.brand }}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="theme-{{ theme }}">
+  <header class="top">
+    <div class="top__inner">
+      <a class="logo" href="{% url 'playlists:index' %}">{{ t.brand }}</a>
+      <p class="tagline">{{ t.tagline }}</p>
+      <nav class="nav" aria-label="Main">
+        <a href="{% url 'playlists:index' %}">{{ t.nav_home }}</a>
+        <a href="{% url 'playlists:catalog' %}">{{ t.nav_catalog }}</a>
+        <a href="{% url 'playlists:create' %}">{{ t.nav_create }}</a>
+        <a href="{% url 'playlists:mine' %}">{{ t.nav_mine }}</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <aside class="prefs" aria-labelledby="prefs-heading">
+    <h2 id="prefs-heading" class="prefs__title">{{ t.prefs_title }}</h2>
+    <form class="prefs__form" method="post" action="{% url 'playlists:preferences' %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <div class="prefs__row">
+        <span class="prefs__label">{{ t.pref_theme }}</span>
+        <label><input type="radio" name="theme" value="light" {% if theme == 'light' %}checked{% endif %}> {{ t.theme_light }}</label>
+        <label><input type="radio" name="theme" value="dark" {% if theme == 'dark' %}checked{% endif %}> {{ t.theme_dark }}</label>
+      </div>
+      <div class="prefs__row">
+        <span class="prefs__label">{{ t.pref_lang }}</span>
+        <label><input type="radio" name="ui_lang" value="ru" {% if ui_lang == 'ru' %}checked{% endif %}> {{ t.lang_ru }}</label>
+        <label><input type="radio" name="ui_lang" value="en" {% if ui_lang == 'en' %}checked{% endif %}> {{ t.lang_en }}</label>
+      </div>
+      <button type="submit" class="btn">OK</button>
+    </form>
+    {% if visited_pages %}
+    <div class="visited">
+      <h3 class="visited__title">{{ t.visited_title }}</h3>
+      <ul class="visited__list">
+        {% for p in visited_pages %}
+        <li><code>{{ p }}</code></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </aside>
+
+  <footer class="foot">
+    <p>{{ t.footer_note }}</p>
+  </footer>
+</body>
+</html>

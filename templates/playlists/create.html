@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1 class="page-title">{{ t.create_title }}</h1>
-<form class="pl-form" method="post" action="">
+<form class="pl-form" method="post" action="" data-turbo="false">
   {% csrf_token %}
   <div class="field">
     <label class="field__label" for="id_name">{{ t.create_name }}</label>

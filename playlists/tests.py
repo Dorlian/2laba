@@ -1,7 +1,7 @@
-import json
-
 from django.test import Client, TestCase
 from django.urls import reverse
+
+from playlists.cookie_visited import encode_visited_pages, parse_visited_pages
 
 
 class PagesTests(TestCase):
@@ -16,7 +16,7 @@ class PagesTests(TestCase):
     def test_catalog_ok(self):
         r = self.client.get(reverse("playlists:catalog"))
         self.assertEqual(r.status_code, 200)
-        self.assertContains(r, "Midnight Drive")
+        self.assertContains(r, "Dance Monkey")
 
     def test_create_get_ok(self):
         r = self.client.get(reverse("playlists:create"))
@@ -51,6 +51,16 @@ class PagesTests(TestCase):
         self.assertEqual(r.status_code, 200)
         raw = r.cookies.get("visited_pages")
         self.assertIsNotNone(raw)
-        pages = json.loads(raw.value)
+        pages = parse_visited_pages(raw.value)
         self.assertIsInstance(pages, list)
         self.assertIn("/catalog/", pages)
+
+    def test_parse_legacy_json_cookie(self):
+        legacy = '["/mine/", "/catalog/"]'
+        self.assertEqual(parse_visited_pages(legacy), ["/mine/", "/catalog/"])
+
+    def test_v2_cookie_roundtrip(self):
+        paths = ["/", "/mine/", "/playlist/abc/"]
+        encoded = encode_visited_pages(paths)
+        self.assertTrue(encoded.startswith("v2:"))
+        self.assertEqual(parse_visited_pages(encoded), paths)

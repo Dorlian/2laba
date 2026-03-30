@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ playlist.name }} — {{ t.brand }}{% endblock %}
 
@@ -7,13 +8,25 @@
   <h1 class="page-title">{{ playlist.name }}</h1>
   {% if playlist.description %}<p class="detail__desc">{{ playlist.description }}</p>{% endif %}
   <h2 class="detail__sub">{{ t.detail_tracks }}</h2>
-  <ol class="track-list">
+  <p class="detail__actions">
+    <button type="button" class="btn btn--primary" id="js-play-order">{{ t.play_in_order }}</button>
+  </p>
+  <ol class="track-list track-list--audio">
     {% for tr in tracks %}
-    <li>{{ tr.artist }} — {{ tr.title }} ({{ tr.duration_min }} min)</li>
+    <li class="track-item">
+      <div class="track-item__head">
+        <span class="track-item__title">{{ tr.artist }} — {{ tr.title }}</span>
+        {% if tr.duration_min %}<span class="track-item__dur">{{ tr.duration_min }} min</span>{% endif %}
+      </div>
+      {% if tr.audio %}
+      <audio class="track-item__player ph-audio" controls preload="metadata" src="{% static tr.audio %}" data-label="{{ tr.artist }} — {{ tr.title }}"></audio>
+      {% endif %}
+    </li>
     {% empty %}
     <li>—</li>
     {% endfor %}
   </ol>
+  <p class="detail__hint">{{ t.playlist_player }}</p>
   <p><a href="{% url 'playlists:mine' %}">{{ t.back }}</a></p>
 </article>
 {% endblock %}

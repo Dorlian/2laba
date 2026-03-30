@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ t.catalog_title }} — {{ t.brand }}{% endblock %}
 
@@ -13,6 +14,7 @@
         <th>{{ t.col_artist }}</th>
         <th>{{ t.col_genre }}</th>
         <th>{{ t.col_min }}</th>
+        <th>{{ t.col_play }}</th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +31,13 @@
           {% endfor %}
         </td>
         <td>{{ track.duration_min }}</td>
+        <td class="data-table__cell-audio">
+          {% if track.audio %}
+          <audio class="table-audio ph-audio" controls preload="none" src="{% static track.audio %}" data-label="{{ track.artist }} — {{ track.title }}"></audio>
+          {% else %}
+          —
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

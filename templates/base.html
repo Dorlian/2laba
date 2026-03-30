@@ -7,10 +7,20 @@
   <title>{% block title %}{{ t.brand }}{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body class="theme-{{ theme }}">
+<body class="theme-{{ theme }} has-mini-player">
+  <div id="ph-global-dock" data-turbo-permanent>
+    <div class="mini-player" aria-live="polite">
+      <div class="mini-player__meta">
+        <span id="mini-player-track" class="mini-player__track"></span>
+      </div>
+      <audio id="ph-global-audio" class="mini-player__audio" controls preload="auto"></audio>
+    </div>
+  </div>
+
   <header class="top">
     <div class="top__inner">
       <a class="logo" href="{% url 'playlists:index' %}">{{ t.brand }}</a>
+      <p id="header-now-playing" class="header-now-playing" hidden></p>
       <p class="tagline">{{ t.tagline }}</p>
       <nav class="nav" aria-label="Main">
         <a href="{% url 'playlists:index' %}">{{ t.nav_home }}</a>
@@ -21,13 +31,13 @@
     </div>
   </header>
 
-  <main class="main">
+  <main class="main" id="main-content">
     {% block content %}{% endblock %}
   </main>
 
   <aside class="prefs" aria-labelledby="prefs-heading">
     <h2 id="prefs-heading" class="prefs__title">{{ t.prefs_title }}</h2>
-    <form class="prefs__form" method="post" action="{% url 'playlists:preferences' %}">
+    <form class="prefs__form" method="post" action="{% url 'playlists:preferences' %}" data-turbo="false">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ request.path }}">
       <div class="prefs__row">
@@ -46,8 +56,8 @@
     <div class="visited">
       <h3 class="visited__title">{{ t.visited_title }}</h3>
       <ul class="visited__list">
-        {% for p in visited_pages %}
-        <li><code>{{ p }}</code></li>
+        {% for item in visited_pages %}
+        <li><a class="visited__link" href="{{ item.href }}">{{ item.label }}</a></li>
         {% endfor %}
       </ul>
     </div>
@@ -57,5 +67,14 @@
   <footer class="foot">
     <p>{{ t.footer_note }}</p>
   </footer>
+
+  <script>
+  window.__PH = {
+    prefix: "{{ t.header_active_playlist|escapejs }}",
+    catalogLabel: "{{ t.nav_catalog|escapejs }}"
+  };
+  </script>
+  <script src="https://unpkg.com/@hotwired/turbo@7.3.0/dist/turbo.es2017-umd.js"></script>
+  <script src="{% static 'js/player.js' %}"></script>
 </body>
 </html>

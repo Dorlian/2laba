@@ -9,7 +9,9 @@
     <a class="btn btn--primary" href="{% url 'playlists:create' %}">{{ t.nav_create }}</a>
   </div>
   <div class="hero__art">
-    <img src="{% static 'images/playlist-hero.svg' %}" width="320" height="240" alt="">
+    <a class="hero__art-link" href="{% url 'playlists:catalog' %}" aria-label="{{ t.hero_art_aria }}">
+      <img src="{% static 'images/playlist-hero.svg' %}" width="320" height="240" alt="" role="presentation">
+    </a>
   </div>
 </section>
 {% endblock %}
